@@ -16,15 +16,24 @@ class Sketch {
     
     // Declare any properties you need for your sketch below this comment, but before init()
     var x = 0
-    var s = 4
-    var x2 = 0
-    var s2 = 8
+    var s = 50
+    var height = 700
+    var m = 0
+    var m2 = 0
+    var m3 = 0
+    var green = 80
+    var yellow = 60
+    var red = 0
+    var colour1 = Float(0)
+    var colour2 = Float(0)
+    var colour3 = Float(0)
+    var boolean = true
 
     // This runs once, equivalent to setup() in Processing
     init() {
         
         // Create canvas object – specify size
-        canvas = Canvas(width: 1280, height: 700)
+        canvas = Canvas(width: 1280, height: height)
         
         // The frame rate can be adjusted; the default is 60 fps
         canvas.framesPerSecond = 60
@@ -33,32 +42,58 @@ class Sketch {
     
     // Runs repeatedly, equivalent to draw() in Processing
     func draw() {
-                
-        // Horizontal position of circle
-        x = x + s
-        x2 = x2 + s2
-        
-        // Bounce when hitting wall
-        if (x > canvas.width || x < 0) {
-            s *= -1
+        if(m<height/3){
+            colour1 = 80
+        }else if(m<(height/3)*2){
+            colour1 = 60
+        }else{
+            colour1 = 0
+        }
+        if(m2<height/3){
+            colour2 = 80
+        }else if(m2<(height/3)*2){
+            colour2 = 60
+        }else{
+            colour2 = 0
         }
         
-        if (x2 > canvas.width || x2 < 0) {
-            s2 *= -1
+        if(m3<height/3){
+            colour3 = 80
+        }else if(m3<(height/3)*2){
+            colour3 = 60
+        }else{
+            colour3 = 0
         }
 
+
+        var i = 0
         
-        
+        while (m<height && i<10){
+            m=m+10
+            i=i+1
+        }
+        if(boolean == false){
+            m=m-10
+        }
+        if (m2<height){
+            m2=m2+10
+        }
+        if (m3<height){
+            m3=m3+5
+        }
         // Clear the background
         canvas.drawShapesWithBorders = false
-        canvas.fillColor = Color(hue: 0, saturation: 0, brightness: 0, alpha: 10)
+        canvas.fillColor = Color(hue: 0, saturation: 0, brightness: 0, alpha: 100)
         canvas.drawRectangle (bottomRightX: 0, bottomRightY: 0, width: canvas.width, height: canvas.height)
         
         // Draw a circle that moves across the screen
         canvas.drawShapesWithBorders = false
-        canvas.fillColor = Color(hue: Float(canvas.frameCount), saturation: 80, brightness: 90, alpha: 100)
-        canvas.drawEllipse(centreX: x, centreY: canvas.height / 2, width: 100, height: 100)
-         canvas.drawEllipse(centreX: x2, centreY: canvas.height/4, width: 100, height: 100)
+        canvas.fillColor = Color(hue: colour1, saturation: 80, brightness: 90, alpha: 100)
+        canvas.drawRectangle (bottomRightX: 0, bottomRightY: 0, width: 100, height: m)
+        canvas.fillColor = Color(hue: colour2, saturation: 80, brightness: 90, alpha: 100)
+        canvas.drawRectangle (bottomRightX: 200, bottomRightY: 0, width: 100, height: m2)
+        canvas.fillColor = Color(hue: colour3, saturation: 80, brightness: 90, alpha: 100)
+        canvas.drawRectangle (bottomRightX: 400, bottomRightY: 0, width: 100, height: m3)
         
     }
     
